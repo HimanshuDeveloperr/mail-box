@@ -37,6 +37,10 @@ const Signup = () => {
     //   console.log(error);
     seterr(true);
     }
+
+  passwordRef.current.value=''
+  confirmPasswordRef.current.value=''
+  emailRef.current.value=''
   };
 
   return (
