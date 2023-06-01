@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const Signup = () => {
+    const[err,seterr]=useState(false)
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
@@ -33,7 +34,8 @@ const Signup = () => {
       );
       console.log(`${response.data.email} has successfully registered `);
     } catch (error) {
-      console.log(error);
+    //   console.log(error);
+    seterr(true);
     }
   };
 
@@ -71,6 +73,7 @@ const Signup = () => {
             </NavLink>
           </p>
         </div>
+        {err && <p className='text-warning'>something went wrong</p>}
       </Card>
     </div>
   );
