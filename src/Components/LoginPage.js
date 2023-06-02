@@ -1,9 +1,11 @@
 import React , {useRef,useState} from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export const LoginPage = () => {
+
+  const navigate=useNavigate()
   const[err,seterr]=useState(false)
 
   const emailRef = useRef();
@@ -32,6 +34,7 @@ export const LoginPage = () => {
       console.log(response.data.idToken);
       alert(`welcome ${response.data.email}`)
       localStorage.setItem("token",response.data.idToken)
+      navigate("/afterLogin")
     } catch (error) {
     //   console.log(error);
     seterr(true);
