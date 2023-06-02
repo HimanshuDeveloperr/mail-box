@@ -34,6 +34,7 @@ export const LoginPage = () => {
       console.log(response.data.idToken);
       alert(`welcome ${response.data.email}`)
       localStorage.setItem("token",response.data.idToken)
+      localStorage.setItem("email",response.data.email)
       navigate("/afterLogin")
     } catch (error) {
     //   console.log(error);
