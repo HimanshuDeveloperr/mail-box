@@ -13,6 +13,7 @@ const mailHandler=()=>{
 
 const cancelHandler=()=>{
   setMail(false)
+  setaVariant("primary")
 }
 
   return (
