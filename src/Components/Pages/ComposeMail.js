@@ -5,6 +5,8 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch} from 'react-redux';
+import { AuthActions } from '../Store/AuthSlice';
 
 const ComposeMail = () => {
   const [recipient, setRecipient] = useState('');
@@ -12,6 +14,8 @@ const ComposeMail = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const[sent,setsent]=useState(false)
  const navigate= useNavigate()
+ const dispatch=useDispatch()
+ 
 
   const handleRecipientChange = (event) => {
     setRecipient(event.target.value);
@@ -29,6 +33,7 @@ const ComposeMail = () => {
   
     let receivedEmail = recipient.replace(".", "").replace("@", "");
     let senderEmail=localStorage.getItem("email").replace(".","").replace("@","")
+    dispatch(AuthActions.tokenHandler(receivedEmail))
   
     try {
       const contentState = editorState.getCurrentContent();
@@ -63,6 +68,10 @@ const ComposeMail = () => {
   
 const sentHandler=()=>{
     navigate('/sentbox')
+}
+
+const inboxHandler=()=>{
+  navigate('/inbox')
 }
   return (
     <>
@@ -113,7 +122,7 @@ const sentHandler=()=>{
    
    }
    {sent &&<Button variant='success' className='m-2' onClick={sentHandler}>SentBox</Button>}
-    {sent && <Button>InBox</Button>}
+    {sent && <Button onClick={inboxHandler}>InBox</Button>}
     </>
   );
 };

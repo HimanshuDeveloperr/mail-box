@@ -6,6 +6,7 @@ import {LoginPage} from "./Components//Pages/LoginPage"
 import AfterLogin from './Components//Pages/AfterLogin';
 import SentBox from './Components/Pages/SentBox';
 import MessageDetails from './Components/Pages/MessageDetails';
+import Inbox from './Components/Pages/Inbox';
 function App() {
   return (
     <div className='App'>
@@ -16,6 +17,7 @@ function App() {
           <Route path='/afterLogin' element={<AfterLogin/>}/>
           <Route path='/sentbox' element={<SentBox/>}/>
           <Route path='/messages/:messageId' element={<MessageDetails/>}/>
+          <Route path='/inbox' element={<Inbox/>}/>
         </Routes>
       </Router>
     </div>
