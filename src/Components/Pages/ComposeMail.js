@@ -4,11 +4,14 @@ import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ComposeMail = () => {
   const [recipient, setRecipient] = useState('');
   const [subject, setSubject] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const[sent,setsent]=useState(false)
+ const navigate= useNavigate()
 
   const handleRecipientChange = (event) => {
     setRecipient(event.target.value);
@@ -43,20 +46,28 @@ const ComposeMail = () => {
   
 
 
+
       await axios.post(`https://mail-box-client-72574-default-rtdb.firebaseio.com/${senderEmail}.json`,{
         sendTo:recipient,
         subject:subject,
         message:message
       })
      
+      
   
     } catch (error) {
       console.log(error);
     }
+    setsent(true)
   };
   
-
+const sentHandler=()=>{
+    navigate('/sentbox')
+}
   return (
+    <>
+   {!sent && 
+   
     <Container>
       <Row className="justify-content-center mt-5">
         <Col md={6}>
@@ -99,6 +110,11 @@ const ComposeMail = () => {
         </Col>
       </Row>
     </Container>
+   
+   }
+   {sent &&<Button variant='success' className='m-2' onClick={sentHandler}>SentBox</Button>}
+    {sent && <Button>InBox</Button>}
+    </>
   );
 };
 
