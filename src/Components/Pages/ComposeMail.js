@@ -41,9 +41,9 @@ const ComposeMail = () => {
       const message = rawContentState.blocks[0].text;
   
       await axios.post(
-        `https://mail-box-client-72574-default-rtdb.firebaseio.com/${receivedEmail}.json`,
+        `https://mail-box--inbox-default-rtdb.firebaseio.com//${receivedEmail}.json`,
         {
-          from: recipient,
+          from: senderEmail,
           subject: subject,
           message: message,
         }
@@ -121,8 +121,9 @@ const inboxHandler=()=>{
     </Container>
    
    }
-   {sent &&<Button variant='success' className='m-2' onClick={sentHandler}>SentBox</Button>}
-    {sent && <Button onClick={inboxHandler}>InBox</Button>}
+    <Button variant='success' className='m-2' onClick={sentHandler}>SentBox</Button>
+     <Button onClick={inboxHandler}>InBox</Button>
+     {sent && <p className='text-success'>Email sent successfully</p>}
     </>
   );
 };
