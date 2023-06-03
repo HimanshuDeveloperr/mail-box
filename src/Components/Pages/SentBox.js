@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Card } from 'react-bootstrap';
+import { Card,Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const SentBox = () => {
   const [sentboxArr, setSentboxArr] = useState([]);
   const [loading, setIsLoading] = useState(false);
+ 
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,30 +33,34 @@ const SentBox = () => {
 
   return (
     <div className="h-100 d-flex justify-content-center align-items-center">
-      <Card className="w-75">
-        <Card.Body>
-          <Card.Title>Sent Box</Card.Title>
-          {loading && <p>...loading</p>}
-          {!loading && (
-            <>
-              {sentboxArr.length === 0 ? (
-                <p>Sent box is empty</p>
-              ) : (
-                sentboxArr.map((email) => (
-                  <div key={email.id}>
-                    <p>ID: {email.id}</p>
-                    <p>Message: {email.message}</p>
-                    <p>Send To: {email.sendTo}</p>
-                    <p>Subject: {email.subject}</p>
-                  </div>
-                ))
-              )}
-            </>
-          )}
-        </Card.Body>
-      </Card>
-    </div>
-  );
+    <Card className="w-75" style={{ background: 'transparent', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',color:'white' }}>
+      <Card.Body>
+        <Card.Title style={{ color: '#555555' }}>Sent Box</Card.Title>
+        {loading && <p>...loading</p>}
+        {!loading && (
+          <>
+            {sentboxArr.length === 0 ? (
+              <p>Sent box is empty</p>
+            ) : (
+              sentboxArr.map((email) => (
+                <div key={email.id} className="mb-3 pb-3 border-bottom">
+                  <p className="mt-2">
+                    <strong>Send To:</strong> {email.sendTo}
+                  </p>
+                  <p>
+                    <strong>Subject:</strong> {email.subject}
+                  </p>
+                  <Link to={`/messages/${email.id}`} className="text-decoration-none">
+                    <Button variant="dark" style={{ background: 'purple' }}>View Message</Button>
+                  </Link>
+                </div>
+              ))
+            )}
+          </>
+        )}
+      </Card.Body>
+    </Card>
+  </div>  );
 };
 
 export default SentBox;
