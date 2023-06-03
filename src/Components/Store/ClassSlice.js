@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState={
-    class:false
+    class:false,
+    
 }
 
 const ClassSlice=createSlice(
