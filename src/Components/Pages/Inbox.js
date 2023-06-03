@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ClassActions } from '../Store/ClassSlice';
 
 const Inbox = () => {
+   const deleteMail= useSelector(state=>state.auth.email)
+   console.log(deleteMail)
   const sentMail = localStorage.getItem('email').replace('.', '').replace('@', '');
 
   const [sentboxArr, setSentboxArr] = useState([]);
@@ -59,6 +61,14 @@ sentboxArr.forEach(email => {
     dispatch(ClassActions.classHandler());
   };
 
+  const deleteHandler= async(id)=>{
+  
+      await axios.delete(`https://mail-box--inbox-default-rtdb.firebaseio.com/${sentMail}/${id}.json`)
+
+      const updatedSentboxArr = sentboxArr.filter(email => email.id !== id);
+    setSentboxArr(updatedSentboxArr);
+  }
+
   return (
     <div className="h-100 d-flex justify-content-center align-items-center">
       <Card className="w-75" style={{ background: 'transparent', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)', color: 'white' }}>
@@ -80,8 +90,9 @@ sentboxArr.forEach(email => {
                       <strong>Subject:</strong> {email.subject}
                     </p>
                     <Link to={`/inboxmessages/${email.id}`} className="text-decoration-none">
-                      <Button variant="dark" style={{ background: 'purple' }} onClick={readHandler}>View Message</Button>
+                      <Button variant="outline-info"  onClick={readHandler}>View Message</Button>
                     </Link>
+                    <Button variant='outline-danger' className='mx-2' onClick={() => deleteHandler(email.id)}>Delete</Button>
                   </div>
                 ))
               )}
@@ -90,10 +101,10 @@ sentboxArr.forEach(email => {
         </Card.Body>
 
         <Card.Footer>
-          {!mail && <Button variant="success" onClick={mailHandler}>Compose Mail</Button>}
+          {!mail && <Button variant="outline-success" onClick={mailHandler}>Compose Mail</Button>}
           {mail && <ComposeMail />}
           {mail && <Button variant='danger' className='m-2' onClick={cancelHandler}>Cancel</Button>}
-          <p className="text-muted">Unread Emails: {unreadCount}</p>
+          <p className="text-muted text-white-50">Unread Emails: {unreadCount}</p>
         </Card.Footer>
       </Card>
     </div>

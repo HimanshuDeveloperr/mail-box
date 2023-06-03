@@ -22,7 +22,7 @@ const cancelHandler=()=>{
       
       <div>
        <div>
-       {!mail && <Button variant="success" onClick={mailHandler}>Compose Mail</Button>} 
+       {!mail && <Button variant="outline-success" onClick={mailHandler}>Compose Mail</Button>} 
        {mail && <ComposeMail/>}
        {mail && <Button  variant='danger' className='m-2' onClick={cancelHandler}>Cancel</Button>}
         </div>
