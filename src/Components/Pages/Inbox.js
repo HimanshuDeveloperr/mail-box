@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Card,Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ComposeMail from './ComposeMail';
+import { useDispatch, useSelector } from 'react-redux';
+import { ClassActions } from '../Store/ClassSlice';
 
 const Inbox = () => {
     const sentMail = localStorage.getItem('email').replace('.', '').replace('@', '');
@@ -10,6 +12,8 @@ const Inbox = () => {
     const [sentboxArr, setSentboxArr] = useState([]);
     const [loading, setIsLoading] = useState(false);
 const [mail,setMail]=useState(false)
+const dispatch=useDispatch()
+const classes=useSelector(state=>state.class.class)
 
 
     useEffect(() => {
@@ -42,11 +46,15 @@ const [mail,setMail]=useState(false)
       const cancelHandler=()=>{
         setMail(false)
       }
+
+      const readHandler=()=>{
+        dispatch(ClassActions.classHandler())
+      }
       return (
         <div className="h-100 d-flex justify-content-center align-items-center">
         <Card className="w-75" style={{ background: 'transparent', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',color:'white' }}>
           <Card.Body>
-            <Card.Title style={{ color: '#555555' }}>InBox</Card.Title>
+            <Card.Title style={{ color: '#555555' }} className='border-bottom'>InBox</Card.Title>
             {loading && <p>...loading</p>}
             {!loading && (
               <>
@@ -56,13 +64,14 @@ const [mail,setMail]=useState(false)
                   sentboxArr.map((email) => (
                     <div key={email.id} className="mb-3 pb-3 border-bottom">
                       <p className="mt-2">
+                       {classes?<span className='text-info'>--</span>:<span className='text-danger'>--</span>} 
                         <strong>mail from:</strong> {email.from}
                       </p>
                       <p>
                         <strong>Subject:</strong> {email.subject}
                       </p>
                       <Link to={`/inboxmessages/${email.id}`} className="text-decoration-none">
-                        <Button variant="dark" style={{ background: 'purple' }}>View Message</Button>
+                        <Button variant="dark" style={{ background: 'purple' }} onClick={readHandler}>View Message</Button>
                       </Link>
                     </div>
                   ))
