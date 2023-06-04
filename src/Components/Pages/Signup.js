@@ -1,10 +1,10 @@
-import axios from 'axios';
-import React, { useRef, useState } from 'react';
-import { Button, Card, Form } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import { Button, Card, Form } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const Signup = () => {
-    const[err,seterr]=useState(false)
+  const [err, seterr] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
@@ -16,16 +16,14 @@ const Signup = () => {
     const confirmPassword = confirmPasswordRef.current.value;
     const email = emailRef.current.value;
 
-    
-
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert("Passwords do not match");
       return;
     }
 
     try {
       const response = await axios.post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB0Y-g4td_jI-HBRPhNAnsffYhjAhuevtY',
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB0Y-g4td_jI-HBRPhNAnsffYhjAhuevtY",
         {
           email: email,
           password: password,
@@ -34,13 +32,13 @@ const Signup = () => {
       );
       console.log(`${response.data.email} has successfully registered `);
     } catch (error) {
-    //   console.log(error);
-    seterr(true);
+      //   console.log(error);
+      seterr(true);
     }
 
-  passwordRef.current.value=''
-  confirmPasswordRef.current.value=''
-  emailRef.current.value=''
+    passwordRef.current.value = "";
+    confirmPasswordRef.current.value = "";
+    emailRef.current.value = "";
   };
 
   return (
@@ -71,13 +69,13 @@ const Signup = () => {
         </Card.Body>
         <div>
           <p>
-            Have an account{' '}
+            Have an account{" "}
             <NavLink to="/login" className="text-warning">
               Login
             </NavLink>
           </p>
         </div>
-        {err && <p className='text-warning'>something went wrong</p>}
+        {err && <p className="text-warning">something went wrong</p>}
       </Card>
     </div>
   );

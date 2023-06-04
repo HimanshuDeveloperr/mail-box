@@ -7,12 +7,16 @@ const InboxMessages = () => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-
-    const sentMail = localStorage.getItem('email').replace('.', '').replace('@', '');
+    const sentMail = localStorage
+      .getItem("email")
+      .replace(".", "")
+      .replace("@", "");
 
     const fetchMessageDetails = async () => {
       try {
-        const response = await axios.get(`https://mail-box--inbox-default-rtdb.firebaseio.com/${sentMail}/${messageId}.json`);
+        const response = await axios.get(
+          `https://mail-box--inbox-default-rtdb.firebaseio.com/${sentMail}/${messageId}.json`
+        );
         setMessage(response.data);
       } catch (error) {
         console.log(error);
@@ -27,16 +31,18 @@ const InboxMessages = () => {
   }
 
   return (
-    <div className="d-flex justify-content-center align-items-center " style={{ height: '100vh' }}>
-
-    <div className='text-warning' >
-      <h2>Message Details</h2>
-      {/* {console.log(message)} */}
-      {/* <p>ID: {message.id}</p> */}
-      <p>Message: {message.message}</p>
-      {/* <p>Send To: {message.sendTo}</p> */}
-      {/* <p>Subject: {message.subject}</p> */}
-    </div>
+    <div
+      className="d-flex justify-content-center align-items-center "
+      style={{ height: "100vh" }}
+    >
+      <div className="text-warning">
+        <h2>Message Details</h2>
+        {/* {console.log(message)} */}
+        {/* <p>ID: {message.id}</p> */}
+        <p>Message: {message.message}</p>
+        {/* <p>Send To: {message.sendTo}</p> */}
+        {/* <p>Subject: {message.subject}</p> */}
+      </div>
     </div>
   );
 };
