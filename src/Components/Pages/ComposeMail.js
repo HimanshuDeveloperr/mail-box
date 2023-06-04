@@ -5,8 +5,6 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
-import { AuthActions } from '../Store/AuthSlice';
 
 const ComposeMail = () => {
   const [recipient, setRecipient] = useState('');
@@ -14,7 +12,6 @@ const ComposeMail = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const[sent,setsent]=useState(false)
  const navigate= useNavigate()
- const dispatch=useDispatch()
  
 
   const handleRecipientChange = (event) => {
@@ -33,7 +30,6 @@ const ComposeMail = () => {
   
     let receivedEmail = recipient.replace(".", "").replace("@", "");
     let senderEmail=localStorage.getItem("email").replace(".","").replace("@","")
-    dispatch(AuthActions.tokenHandler(receivedEmail))
   
     try {
       const contentState = editorState.getCurrentContent();

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import ComposeMail from './ComposeMail';
+import { useSelector } from 'react-redux';
 
 const AfterLogin = () => {
 const [mail,setMail]=useState(false)
 const[variant,setaVariant]=useState("primary")
+const unreadCount = useSelector((state) => state.class.unreadCount);
+console.log(unreadCount)
 
 const mailHandler=()=>{
   setMail(true)
