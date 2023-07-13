@@ -32,7 +32,7 @@ const Signup = () => {
         }
       );
       console.log(`${response.data.email} has successfully registered `);
-      navigate("/")
+      navigate("/login")
     } catch (error) {
       //   console.log(error);
       seterr(true);
