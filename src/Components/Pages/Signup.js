@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate=useNavigate()
   const [err, seterr] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -31,6 +32,7 @@ const Signup = () => {
         }
       );
       console.log(`${response.data.email} has successfully registered `);
+      navigate("/")
     } catch (error) {
       //   console.log(error);
       seterr(true);
